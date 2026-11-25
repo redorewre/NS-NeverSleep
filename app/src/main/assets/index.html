@@ -54,19 +54,19 @@ button,input{font:inherit}
  display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--muted);
  font-size:12px;text-transform:uppercase;letter-spacing:1.1px;padding:18px 4px 10px;
 }
-.tracks{display:flex;flex-direction:column;gap:8px}
+.tracks{display:flex;flex-direction:column;gap:10px}
 .track{
- display:flex;align-items:center;gap:12px;background:var(--card);
- border:1px solid var(--line);border-radius:16px;padding:10px 12px;
+ display:flex;align-items:center;gap:14px;background:var(--card);
+ border:1px solid var(--line);border-radius:19px;padding:14px;
  cursor:pointer;transition:transform .15s,background .15s,border-color .15s;
 }
 .track:active{transform:scale(.985);background:var(--card2)}
 .track.current{border-color:var(--a2);background:var(--card2)}
 .cover{
- width:44px;height:44px;flex:none;border-radius:13px;
+ width:56px;height:56px;flex:none;border-radius:16px;
  background:linear-gradient(135deg,var(--a1),var(--a2));
  color:var(--on-a1);display:grid;place-items:center;
- font-weight:800;font-size:15px;position:relative;
+ font-weight:800;font-size:18px;position:relative;
 }
 .track .cover::after{
  content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
@@ -77,11 +77,11 @@ button,input{font:inherit}
  animation:coverFlow 4s linear infinite;pointer-events:none;
 }
 @keyframes coverFlow{from{background-position:0 0}to{background-position:300% 0}}
-.meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
-.meta b{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.meta span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dur{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.fav-btn{border:0;background:transparent;color:var(--muted);padding:8px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
+.meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.meta b{font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta span{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dur{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fav-btn{border:0;background:transparent;color:var(--muted);padding:10px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
 .fav-btn.on{color:var(--a2)}
 .fav-btn:active{background:var(--card2)}
 .empty{text-align:center;color:var(--muted);padding:52px 20px}
@@ -89,6 +89,25 @@ button,input{font:inherit}
 .empty b{display:block;color:var(--on);margin:14px 0 6px;font-size:17px}
 .empty p{margin:0 0 18px;font-size:13px;line-height:1.5}
 .primary-btn{border:0;border-radius:16px;background:var(--a2);color:var(--on-a2);font-weight:600;font-size:14px;padding:12px 20px;cursor:pointer}
+.playlists{display:flex;flex-direction:column;gap:12px}
+.playlist{
+ display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+ background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;cursor:pointer;
+ color:var(--on);transition:transform .15s,background .15s;
+}
+.playlist:active{transform:scale(.985);background:var(--card2)}
+.playlist-art{
+ width:62px;height:62px;flex:none;border-radius:18px;display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
+}
+.playlist-art.likes{background:linear-gradient(135deg,var(--a2),var(--a1))}
+.playlist-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.playlist-meta b{font-size:16px;font-weight:600}
+.playlist-meta span{font-size:12px;color:var(--muted)}
+.playlist-chevron{color:var(--muted);flex:none}
+.subhead{display:flex;align-items:center;gap:10px;padding:12px 4px 10px}
+.subhead b{flex:1;text-align:center;font-size:17px;font-weight:600}
+.subhead .side{width:36px}
 .bottom{display:flex;gap:8px;padding:8px 16px calc(8px + env(safe-area-inset-bottom));border-top:1px solid var(--line);background:var(--bg)}
 .tab{
  position:relative;flex:1;min-height:52px;border:0;border-radius:16px;background:transparent;
@@ -152,18 +171,33 @@ button,input{font:inherit}
 .ctrl.secondary{width:var(--ctrl-s);height:var(--ctrl-s);border-radius:14px}
 .ctrl.secondary svg{width:62%;height:62%}
 .ctrl.on{color:var(--a2)}
-.settings{position:fixed;inset:0;z-index:15;display:flex;align-items:flex-end;justify-content:center}
+.settings{position:fixed;inset:0;z-index:15;display:flex;align-items:stretch;justify-content:center}
 .settings[hidden]{display:none}
-.settings-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.66)}
+.settings-backdrop{position:absolute;inset:0;background:var(--bg)}
 .settings-panel{
- position:relative;width:100%;max-width:560px;max-height:86dvh;overflow-y:auto;overscroll-behavior:contain;
- background:var(--surface);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;
- padding:14px 18px calc(22px + env(safe-area-inset-bottom));
- box-shadow:0 -16px 40px rgba(0,0,0,.45);
+ position:relative;width:100%;height:100dvh;overflow-y:auto;overscroll-behavior:contain;
+ background:var(--bg);display:flex;flex-direction:column;
+ padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
 }
+.settings-page{flex:1;display:flex;flex-direction:column}
+.settings-page[hidden]{display:none}
 .settings-head{display:flex;align-items:center;justify-content:space-between;min-height:40px;color:var(--muted);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
 .settings-head .side{width:36px}
 .settings-title{color:var(--on);font-size:12px;font-weight:600}
+.setting-row{
+ display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+ background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px;
+ color:var(--on);cursor:pointer;transition:transform .15s,background .15s;
+}
+.setting-row:active{transform:scale(.985);background:var(--card2)}
+.setting-icon{
+ width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
+}
+.setting-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.setting-text b{font-size:16px;font-weight:600}
+.setting-text span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.setting-chevron{color:var(--muted);flex:none}
 .accent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
 .accent-item{
  border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:16px;
@@ -229,17 +263,38 @@ button,input{font:inherit}
     </section>
 
     <section class="view" id="view-fav" hidden>
-      <div class="list-head"><span>На устройстве</span><span id="dev-sub"></span></div>
-      <div class="tracks" id="dev-list"></div>
-      <div class="empty" id="dev-empty" hidden>
-        <p style="margin:0;color:var(--muted);font-size:13px;">Нет треков на устройстве. Добавь через «+».</p>
+      <div class="list-head"><span>Плейлисты</span><span>2</span></div>
+      <div class="playlists">
+        <button class="playlist" type="button" data-playlist="likes">
+          <span class="playlist-art likes">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20s-7-4.6-9.2-8.2C1 8.6 3 5 6.5 5 9 5 10.6 6.3 12 8c1.4-1.7 3-3 5.5-3 3.5 0 5.5 3.6 3.7 6.8C19 15.4 12 20 12 20z"/></svg>
+          </span>
+          <span class="playlist-meta"><b>Лайки</b><span id="fav-sub">0 трек(ов)</span></span>
+          <svg class="playlist-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
+        <button class="playlist" type="button" data-playlist="device">
+          <span class="playlist-art">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+          </span>
+          <span class="playlist-meta"><b>На устройстве</b><span id="dev-sub">0 трек(ов)</span></span>
+          <svg class="playlist-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
       </div>
-      <div class="list-head" style="margin-top:18px"><span>Лайки</span><span id="fav-sub"></span></div>
-      <div class="tracks" id="fav-list"></div>
-      <div class="empty" id="fav-empty" hidden>
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M12 20s-7-4.6-9.2-8.2C1 8.6 3 5 6.5 5 9 5 10.6 6.3 12 8c1.4-1.7 3-3 5.5-3 3.5 0 5.5 3.6 3.7 6.8C19 15.4 12 20 12 20z"/></svg>
-        <b>Нет лайков</b>
-        <p>Нажми сердечко у трека, чтобы добавить сюда.</p>
+    </section>
+
+    <section class="view" id="view-playlist" hidden>
+      <div class="subhead">
+        <button class="icon-btn" id="playlist-back" type="button" aria-label="Назад к плейлистам">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <b id="playlist-title"></b>
+        <span class="side"></span>
+      </div>
+      <div class="tracks" id="playlist-list"></div>
+      <div class="empty" id="playlist-empty" hidden>
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+        <b id="playlist-empty-title"></b>
+        <p id="playlist-empty-text"></p>
       </div>
     </section>
   </main>
@@ -311,15 +366,34 @@ button,input{font:inherit}
 <div class="settings" id="settings-sheet" hidden>
   <div class="settings-backdrop" id="settings-backdrop"></div>
   <div class="settings-panel">
-    <div class="settings-head">
-      <span class="side"></span>
-      <span class="settings-title">Настройки</span>
-      <button class="icon-btn side" id="settings-close" type="button" aria-label="Закрыть настройки">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    <div class="settings-page" id="settings-page-main">
+      <div class="settings-head">
+        <span class="side"></span>
+        <span class="settings-title">Настройки</span>
+        <button class="icon-btn side" id="settings-close" type="button" aria-label="Закрыть настройки">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="list-head"><span>Общие</span><span></span></div>
+      <button class="setting-row" id="open-color" type="button">
+        <span class="setting-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 100 18h1.5a2 2 0 001.4-3.4 2 2 0 011.4-3.4H19a2 2 0 002-2A9 9 0 0012 3z"/><circle cx="7.5" cy="11.5" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>
+        </span>
+        <span class="setting-text"><b>Выбор цвета</b><span id="accent-name"></span></span>
+        <svg class="setting-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
       </button>
     </div>
-    <div class="list-head"><span>Вторичный цвет</span><span id="accent-name"></span></div>
-    <div class="accent-grid" id="accent-grid"></div>
+    <div class="settings-page" id="settings-page-color" hidden>
+      <div class="settings-head">
+        <button class="icon-btn" id="color-back" type="button" aria-label="Назад в настройки">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </button>
+        <span class="settings-title">Выбор цвета</span>
+        <span class="side"></span>
+      </div>
+      <div class="list-head"><span>Вторичный цвет</span><span></span></div>
+      <div class="accent-grid" id="accent-grid"></div>
+    </div>
   </div>
 </div>
 
@@ -455,7 +529,7 @@ button,input{font:inherit}
  }catch(e){}
  applySecondary();
 
- var tracks = [], fav = loadFav(), tab = 'search', query = '';
+ var tracks = [], fav = loadFav(), tab = 'search', query = '', favView = null;
  var currentId = null, playing = false, sheetOpen = false, loop = false, shuffle = false;
  var wavePhase = 0, raf = 0, seeking = false, toastTimer;
  var audio = new Audio();
@@ -545,17 +619,40 @@ button,input{font:inherit}
   $('lib-empty').hidden = tracks.length > 0;
   $('no-result').hidden = !(tracks.length > 0 && list.length === 0);
 
-  $('dev-list').innerHTML = tracks.length ? tracks.map(row).join('') : '';
-  $('dev-sub').textContent = tracks.length ? tracks.length + ' трек(ов)' : '';
-  $('dev-empty').hidden = tracks.length > 0;
-
+  $('dev-sub').textContent = tracks.length + ' трек(ов)';
   var fl = tracks.filter(function(t){ return fav.indexOf(t.id) >= 0; });
-  $('fav-list').innerHTML = fl.length ? fl.map(row).join('') : '';
-  $('fav-empty').hidden = fl.length > 0;
-  $('fav-sub').textContent = fl.length ? fl.length + ' трек(ов)' : '';
+  $('fav-sub').textContent = fl.length + ' трек(ов)';
   var badge = $('badge');
   badge.textContent = String(fl.length);
   badge.classList.toggle('show', fl.length > 0);
+  renderPlaylist();
+ }
+ function playlistTracks(){
+  if(favView === 'likes') return tracks.filter(function(t){ return fav.indexOf(t.id) >= 0; });
+  return tracks.slice();
+ }
+ function renderPlaylist(){
+  if(!favView) return;
+  var list = playlistTracks();
+  $('playlist-title').textContent = favView === 'likes' ? 'Лайки' : 'На устройстве';
+  $('playlist-list').innerHTML = list.length ? list.map(row).join('') : '';
+  $('playlist-empty').hidden = list.length > 0;
+  $('playlist-empty-title').textContent = favView === 'likes' ? 'Нет лайков' : 'Нет треков на устройстве';
+  $('playlist-empty-text').textContent = favView === 'likes'
+   ? 'Нажми сердечко у трека, чтобы добавить сюда.'
+   : 'Добавь аудиофайлы через кнопку «+».';
+ }
+ function openPlaylist(kind){
+  favView = kind;
+  $('view-search').hidden = true;
+  $('view-fav').hidden = true;
+  $('view-playlist').hidden = false;
+  document.querySelector('.main').scrollTop = 0;
+  renderPlaylist();
+ }
+ function showFavOverview(){
+  favView = null;
+  $('view-playlist').hidden = true;
  }
  function toggleFav(id){
   var i = fav.indexOf(id);
@@ -565,6 +662,8 @@ button,input{font:inherit}
  }
  function switchTab(name){
   tab = name;
+  favView = null;
+  $('view-playlist').hidden = true;
   $('view-search').hidden = name !== 'search';
   $('view-fav').hidden = name !== 'fav';
   var tabs = document.querySelectorAll('.tab');
@@ -728,7 +827,21 @@ button,input{font:inherit}
   sheetOpen = true; $('sheet').hidden = false; updatePlayer();
  }
  function closeSheet(){ sheetOpen = false; $('sheet').hidden = true; }
- function openSettings(){ renderAccents(); $('settings-sheet').hidden = false; }
+ function openSettings(){
+  renderAccents();
+  $('settings-page-color').hidden = true;
+  $('settings-page-main').hidden = false;
+  $('settings-sheet').hidden = false;
+ }
+ function openColorSettings(){
+  renderAccents();
+  $('settings-page-main').hidden = true;
+  $('settings-page-color').hidden = false;
+ }
+ function closeColorSettings(){
+  $('settings-page-color').hidden = true;
+  $('settings-page-main').hidden = false;
+ }
  function closeSettings(){ $('settings-sheet').hidden = true; }
 
  audio.addEventListener('play', function(){ playing = true; updatePlayer(); startWave(); });
@@ -747,6 +860,8 @@ button,input{font:inherit}
  $('settings').addEventListener('click', openSettings);
  $('settings-close').addEventListener('click', closeSettings);
  $('settings-backdrop').addEventListener('click', closeSettings);
+ $('open-color').addEventListener('click', openColorSettings);
+ $('color-back').addEventListener('click', closeColorSettings);
  $('accent-grid').addEventListener('click', function(e){
   var b = e.target.closest('[data-accent]');
   if(!b) return;
@@ -768,6 +883,15 @@ button,input{font:inherit}
  document.querySelector('.bottom').addEventListener('click', function(e){
   var b = e.target.closest('[data-tab]');
   if(b) switchTab(b.getAttribute('data-tab'));
+ });
+ $('view-fav').addEventListener('click', function(e){
+  var b = e.target.closest('[data-playlist]');
+  if(b) openPlaylist(b.getAttribute('data-playlist'));
+ });
+ $('playlist-back').addEventListener('click', function(){
+  showFavOverview();
+  $('view-fav').hidden = false;
+  document.querySelector('.main').scrollTop = 0;
  });
  function removeTrack(id){
   var idx = -1;
@@ -799,8 +923,7 @@ button,input{font:inherit}
   if(rowEl) play(rowEl.getAttribute('data-id'));
  }
  $('results').addEventListener('click', onListClick);
- $('dev-list').addEventListener('click', onListClick);
- $('fav-list').addEventListener('click', onListClick);
+ $('playlist-list').addEventListener('click', onListClick);
 
  $('mini').addEventListener('click', function(e){
   if(e.target.closest('button,canvas')) return;
@@ -840,8 +963,17 @@ button,input{font:inherit}
 
  // Кнопка «назад» Android: настройки → шторка → поиск → очистка запроса → выход.
  window.nsBack = function(){
-  if(!$('settings-sheet').hidden){ closeSettings(); return true; }
+  if(!$('settings-sheet').hidden){
+   if(!$('settings-page-color').hidden){ closeColorSettings(); return true; }
+   closeSettings(); return true;
+  }
   if(sheetOpen){ closeSheet(); return true; }
+  if(favView){
+   showFavOverview();
+   $('view-fav').hidden = false;
+   document.querySelector('.main').scrollTop = 0;
+   return true;
+  }
   if(tab === 'fav'){ switchTab('search'); return true; }
   if(query){
    $('q').value = ''; query = ''; $('clear').hidden = true; render();
