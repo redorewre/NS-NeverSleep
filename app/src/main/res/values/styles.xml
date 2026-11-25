@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- DynamicColors.applyToActivityIfAvailable() накладывает динамическую палитру поверх этой темы -->
+    <!-- DynamicColors меняет акценты; фон и панели зафиксированы серым, почти чёрным -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:windowBackground">?attr/colorSurface</item>
-        <item name="android:statusBarColor">?attr/colorSurface</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowBackground">#111114</item>
+        <item name="android:statusBarColor">#111114</item>
+        <item name="android:navigationBarColor">#111114</item>
     </style>
 </resources>
