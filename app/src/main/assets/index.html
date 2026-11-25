@@ -13,7 +13,7 @@
  --a2:#efb8c8; --a2c:#633b48; --on-a2:#491f2b;
  --bg:#111114; --surface:#1c1c20; --card:#1a1a1e; --card2:#242429;
  --on:#f2f0f5; --muted:#a5a2ac; --line:#37363e;
- --ctrl:clamp(58px,17vw,88px); --ctrl-s:clamp(36px,10vw,48px); --ctrl-main:clamp(78px,24vw,112px);
+ --ctrl:clamp(58px,17vw,88px); --ctrl-s:clamp(36px,10vw,48px); --ctrl-main:clamp(78px,24vw,112px); --pgap:clamp(12px,2.4vh,20px);
 }
 html,body{margin:0;height:100%}
 body{
@@ -27,7 +27,7 @@ button,input{font:inherit}
 .brand{display:flex;align-items:center;gap:10px;min-width:0}
 .mark{
  width:40px;height:40px;border-radius:13px;flex:none;
- background:linear-gradient(135deg,var(--a1),var(--a2));
+ background:var(--a1);
  color:var(--on-a1);display:grid;place-items:center;
  font-weight:800;font-size:19px;box-shadow:0 4px 14px rgba(0,0,0,.4);
 }
@@ -35,9 +35,6 @@ button,input{font:inherit}
 .brand-text strong{font-size:18px;letter-spacing:.7px}
 .brand-text span{font-size:10px;color:var(--muted);letter-spacing:1.6px;text-transform:uppercase}
 .head-actions{display:flex;align-items:center;gap:8px}
-.swatch{display:flex;gap:5px;padding-right:2px}
-.swatch i{width:11px;height:11px;border-radius:50%;background:var(--a1);border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line)}
-.swatch i+i{background:var(--a2)}
 .icon-btn{border:0;background:transparent;color:var(--muted);padding:8px;border-radius:50%;cursor:pointer;display:grid;place-items:center}
 .icon-btn:active{background:var(--card2);color:var(--on)}
 .icon-btn.add{background:var(--card);border:1px solid var(--line);color:var(--a2)}
@@ -64,7 +61,7 @@ button,input{font:inherit}
 .track.current{border-color:var(--a2);background:var(--card2)}
 .cover{
  width:56px;height:56px;flex:none;border-radius:16px;
- background:linear-gradient(135deg,var(--a1),var(--a2));
+ background:var(--a1);
  color:var(--on-a1);display:grid;place-items:center;
  font-weight:800;font-size:18px;position:relative;
 }
@@ -98,9 +95,9 @@ button,input{font:inherit}
 .playlist:active{transform:scale(.985);background:var(--card2)}
 .playlist-art{
  width:62px;height:62px;flex:none;border-radius:18px;display:grid;place-items:center;
- background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
+ background:var(--a1);color:var(--on-a1);
 }
-.playlist-art.likes{background:linear-gradient(135deg,var(--a2),var(--a1))}
+.playlist-art.likes{background:var(--a2);color:var(--on-a2)}
 .playlist-meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
 .playlist-meta b{font-size:16px;font-weight:600}
 .playlist-meta span{font-size:12px;color:var(--muted)}
@@ -142,19 +139,21 @@ button,input{font:inherit}
  background:var(--bg);display:flex;flex-direction:column;
  padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
 }
-.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
+.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.sheet-info{display:flex;flex-direction:column;gap:var(--pgap);flex:none}
+.sheet-bottom{display:flex;flex-direction:column;gap:var(--pgap);width:100%;max-width:460px;margin:0 auto;flex:none}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
 .big-cover{
- width:min(74vw,300px);aspect-ratio:1;margin:12px auto 16px;border-radius:32px;
- background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
+ width:min(74vw,300px);aspect-ratio:1;margin:0 auto;border-radius:32px;
+ background:var(--a1);color:var(--on-a1);
  display:grid;place-items:center;font-size:76px;font-weight:800;box-shadow:0 16px 40px rgba(0,0,0,.45);
 }
 .sheet-title{text-align:center;font-size:21px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
-.sheet-artist{text-align:center;color:var(--muted);font-size:14px;margin-top:4px}
-.sheet .wave{height:34px;margin-top:26px}
-.times{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;margin-top:2px}
+.sheet-artist{text-align:center;color:var(--muted);font-size:14px;margin-top:0}
+.sheet .wave{height:34px;margin-top:0}
+.times{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;margin-top:0}
 .controls{
- width:100%;max-width:460px;margin:auto auto 4px;
+ width:100%;margin:0;
  display:grid;grid-template-columns:var(--ctrl-s) 1fr var(--ctrl-s);
  align-items:center;gap:clamp(4px,1.5vw,8px);
 }
@@ -192,7 +191,7 @@ button,input{font:inherit}
 .setting-row:active{transform:scale(.985);background:var(--card2)}
 .setting-icon{
  width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;
- background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
+ background:var(--a1);color:var(--on-a1);
 }
 .setting-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
 .setting-text b{font-size:16px;font-weight:600}
@@ -211,7 +210,7 @@ button,input{font:inherit}
  box-shadow:0 0 0 2px var(--surface),0 0 0 3px var(--line);
 }
 .accent-item.on .accent-dot{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--a1)}
-.accent-dot.system{background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1)}
+.accent-dot.system{background:var(--a1);color:var(--on-a1)}
 .accent-dot svg{width:18px;height:18px}
 .toast{
  position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));
@@ -230,7 +229,6 @@ button,input{font:inherit}
       <div class="brand-text"><strong>NS</strong><span>NeverSleep</span></div>
     </div>
     <div class="head-actions">
-      <div class="swatch" title="Акценты из цветов системы"><i></i><i></i></div>
       <button class="icon-btn add" id="add" type="button" aria-label="Добавить аудиофайлы">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
       </button>
@@ -337,12 +335,15 @@ button,input{font:inherit}
       <button class="fav-btn" id="sheet-fav" type="button" aria-label="Любимое"></button>
     </div>
     <div class="sheet-body">
-      <div class="big-cover" id="sheet-cover">N</div>
-      <div class="sheet-title" id="sheet-title"></div>
-      <div class="sheet-artist" id="sheet-artist"></div>
-      <canvas class="wave" id="sheet-wave" aria-label="Прогресс трека"></canvas>
-      <div class="times"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
-      <div class="controls">
+      <div class="sheet-info">
+        <div class="big-cover" id="sheet-cover">N</div>
+        <div class="sheet-title" id="sheet-title"></div>
+        <div class="sheet-artist" id="sheet-artist"></div>
+      </div>
+      <div class="sheet-bottom">
+        <canvas class="wave" id="sheet-wave" aria-label="Прогресс трека"></canvas>
+        <div class="times"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
+        <div class="controls">
         <button class="ctrl secondary on" id="sheet-loop" type="button" aria-label="Повтор" aria-pressed="true">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
         </button>
@@ -358,6 +359,7 @@ button,input{font:inherit}
         <button class="ctrl secondary" id="sheet-shuffle" type="button" aria-label="Перемешивание" aria-pressed="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M10 14L3 21"/><path d="M3 16v5h5"/><path d="M4 4l5 5"/><path d="M15 15l6 6"/></svg>
         </button>
+        </div>
       </div>
     </div>
   </div>
@@ -407,15 +409,15 @@ button,input{font:inherit}
  var ACCENT_KEY = 'ns:accent:v1';
  var ACCENTS = [
   {name:'Как в системе', value:null},
-  {name:'Лаванда', value:'#d0bcff'},
-  {name:'Синий', value:'#aecbfa'},
-  {name:'Бирюза', value:'#8ee0d8'},
-  {name:'Мята', value:'#a8e6cf'},
-  {name:'Зелёный', value:'#b7e1a1'},
-  {name:'Жёлтый', value:'#f7d590'},
-  {name:'Оранжевый', value:'#ffb78a'},
-  {name:'Коралл', value:'#f2b8b5'},
-  {name:'Малина', value:'#f5b8de'}
+  {name:'Лаванда', value:'#b1a0d9'},
+  {name:'Синий', value:'#94add5'},
+  {name:'Бирюза', value:'#79beb8'},
+  {name:'Мята', value:'#8fc4b0'},
+  {name:'Зелёный', value:'#9cbf89'},
+  {name:'Жёлтый', value:'#d2b57a'},
+  {name:'Оранжевый', value:'#d99c75'},
+  {name:'Коралл', value:'#ce9c9a'},
+  {name:'Малина', value:'#d09cbd'}
  ];
  function loadAccent(){
   try{
