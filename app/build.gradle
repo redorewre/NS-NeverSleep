@@ -1,0 +1,37 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'dev.neversleep.ns'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'dev.neversleep.ns'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '0.1'
+    }
+
+    buildTypes {
+        debug {
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // Material3 Dynamic Colors: акценты берутся из обоев системы (Android 12+)
+    implementation 'com.google.android.material:material:1.12.0'
+    // WebViewAssetLoader: раздаём assets с https://ns.local, а не с file://
+    implementation 'androidx.webkit:webkit:1.11.0'
+}
