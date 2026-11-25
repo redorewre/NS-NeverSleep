@@ -137,37 +137,55 @@ button,input{font:inherit}
 .sheet-panel{
  position:relative;width:100%;height:100dvh;overflow-y:auto;overscroll-behavior:contain;
  background:var(--bg);display:flex;flex-direction:column;
- padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
+ padding:calc(14px + env(safe-area-inset-top)) 18px calc(56px + env(safe-area-inset-bottom));
 }
-.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
-.sheet-info{display:flex;flex-direction:column;gap:var(--pgap);flex:none}
-.sheet-bottom{display:flex;flex-direction:column;gap:var(--pgap);width:100%;max-width:460px;margin:0 auto;flex:none}
-.sheet-head{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
+.sheet-panel>*{position:relative;z-index:1}
+.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,4vh,38px);min-height:0}
+.sheet-info{display:flex;flex-direction:column;gap:clamp(16px,3vh,26px);flex:none}
+.sheet-bottom{display:flex;flex-direction:column;gap:clamp(10px,2vh,16px);width:100%;max-width:440px;margin:0 auto;flex:none}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;min-height:40px;color:var(--on);gap:8px}
+.np-heading{display:flex;flex-direction:column;align-items:center;gap:2px;text-transform:none;letter-spacing:0;flex:1}
+.np-heading b{font-size:13px;font-weight:600;color:var(--on)}
+.np-heading span{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.np-top-btn{
+ flex:none;border:0;background:transparent;color:var(--muted);width:40px;height:40px;
+ border-radius:14px;display:grid;place-items:center;cursor:pointer;
+}
+.np-top-btn:active{background:var(--card2)}
+.np-menu{
+ position:absolute;right:18px;top:calc(58px + env(safe-area-inset-top));z-index:3;
+ min-width:200px;padding:6px;border-radius:14px;background:var(--card);
+ border:1px solid var(--line);box-shadow:0 14px 32px rgba(0,0,0,.5);
+ display:flex;flex-direction:column;gap:2px;
+}
+.np-menu[hidden]{display:none}
+.np-menu button{border:0;background:transparent;color:var(--on);text-align:left;padding:11px 12px;border-radius:10px;font-size:13px;cursor:pointer}
+.np-menu button:active{background:var(--line)}
 .big-cover{
- width:min(74vw,300px);aspect-ratio:1;margin:0 auto;border-radius:32px;
+ width:min(78vw,320px);aspect-ratio:1;margin:0 auto;border-radius:44px;
  background:var(--a1);color:var(--on-a1);
- display:grid;place-items:center;font-size:76px;font-weight:800;box-shadow:0 16px 40px rgba(0,0,0,.45);
+ display:grid;place-items:center;box-shadow:0 16px 40px rgba(0,0,0,.45);
 }
-.sheet-title{text-align:center;font-size:21px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
-.sheet-artist{text-align:center;color:var(--muted);font-size:14px;margin-top:0}
-.sheet .wave{height:34px;margin-top:0}
-.times{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;margin-top:0}
-.controls{
- width:100%;margin:0;
- display:grid;grid-template-columns:var(--ctrl-s) 1fr var(--ctrl-s);
- align-items:center;gap:clamp(4px,1.5vw,8px);
-}
-.transport{display:flex;align-items:center;justify-content:center;gap:clamp(8px,2.5vw,14px)}
+.big-cover svg{width:46%;height:46%}
+.np-meta{width:100%;max-width:440px;margin:0 auto;display:flex;flex-direction:column;gap:4px}
+.np-title-row{display:flex;align-items:center;gap:12px}
+.sheet-title{flex:1;min-width:0;text-align:left;font-size:19px;font-weight:700;line-height:1.25;overflow-wrap:anywhere;color:var(--on)}
+.sheet-artist{text-align:left;color:var(--muted);font-size:13px;margin-top:0}
+.np-heart{flex:none;border:0;background:transparent;color:var(--muted);padding:8px;cursor:pointer;border-radius:50%}
+.np-heart.on{color:var(--a2)}
+.sheet .wave{height:24px;margin-top:0}
+.times{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;margin-top:0}
+.controls{width:100%;margin:0;display:flex;align-items:center;justify-content:space-between;gap:clamp(2px,1.5vw,8px)}
 .ctrl{flex:none;border:0;background:transparent;color:var(--on);width:var(--ctrl);height:var(--ctrl);border-radius:20px;cursor:pointer;display:grid;place-items:center}
 .ctrl svg{width:58%;height:58%}
 .ctrl:active{background:var(--card2)}
 .ctrl.main{
- background:var(--a1);color:var(--on-a1);width:var(--ctrl-main);height:var(--ctrl-main);border-radius:26px;
+ background:var(--a1);color:var(--on-a1);width:clamp(88px,26vw,112px);height:clamp(56px,16vw,68px);border-radius:22px;
  box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
 .ctrl.main:active{filter:brightness(.95)}
-.ctrl.main svg{width:52%;height:52%}
-.ctrl.secondary{width:var(--ctrl-s);height:var(--ctrl-s);border-radius:14px}
+.ctrl.main svg{width:48%;height:48%}
+.ctrl.secondary{width:var(--ctrl-s);height:var(--ctrl-s);border-radius:14px;color:var(--muted)}
 .ctrl.secondary svg{width:62%;height:62%}
 .ctrl.on{color:var(--a2)}
 .settings{position:fixed;inset:0;z-index:15;display:flex;align-items:stretch;justify-content:center}
@@ -212,7 +230,92 @@ button,input{font:inherit}
 .accent-item.on .accent-dot{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--a1)}
 .accent-dot.system{background:var(--a1);color:var(--on-a1)}
 .accent-dot svg{width:18px;height:18px}
-.toast{
+ /* Экран «Любимые треки»: плоский тёмный список и плавающая навигация */
+.app.float-nav .bottom{display:none}
+.app.float-nav .main{padding-bottom:120px}
+.app.float-nav.has-mini .nav-float{bottom:calc(100px + env(safe-area-inset-bottom))}
+.liked-view .subhead{padding:16px 4px 6px;min-height:0}
+.liked-view .subhead b{text-align:left;font-size:22px;font-weight:700;letter-spacing:-.3px;line-height:1.2}
+.liked-view .subhead .side{display:none}
+.edit-pill{
+ border:0;border-radius:999px;background:var(--card2);color:var(--on);
+ padding:9px 20px;font-size:13px;font-weight:600;cursor:pointer;margin:2px 0 12px 4px;
+}
+.edit-pill:active{background:var(--line)}
+.liked-list{gap:2px}
+.liked-row{position:relative;gap:14px;min-height:74px;padding:10px 6px;border:0;border-radius:14px;background:transparent}
+.liked-row:active{transform:none;background:var(--card)}
+.liked-row.current{background:var(--card2);border-color:transparent}
+.liked-row .cover{width:58px;height:58px;border-radius:12px}
+.liked-row .cover::after{display:none}
+.liked-row .meta b{font-size:16px;font-weight:700;color:var(--on)}
+.liked-row .meta span{font-size:13px;color:var(--muted)}
+.liked-row .dur{display:none}
+.liked-row .dots{margin-left:auto;padding:10px;color:var(--muted)}
+.liked-row .dots svg{width:20px;height:20px;fill:currentColor}
+.liked-row .row-remove{
+ display:none;margin-left:auto;border:0;background:transparent;color:var(--a2);
+ padding:10px;cursor:pointer;
+}
+.liked-view.edit-mode .liked-row .dots{display:none}
+.liked-view.edit-mode .liked-row .row-remove{display:grid;place-items:center}
+.row-menu{
+ position:absolute;right:8px;top:58px;z-index:6;min-width:190px;padding:6px;
+ background:var(--card2);border:1px solid var(--line);border-radius:14px;
+ box-shadow:0 12px 28px rgba(0,0,0,.5);display:flex;flex-direction:column;gap:2px;
+}
+.row-menu[hidden]{display:none}
+.row-menu button{
+ border:0;background:transparent;color:var(--on);text-align:left;
+ padding:11px 12px;border-radius:10px;font-size:13px;cursor:pointer;
+}
+.row-menu button:active{background:var(--line)}
+.nav-float{
+ position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);
+ width:min(420px,calc(100% - 36px));z-index:8;display:flex;gap:6px;
+ padding:8px 10px;border-radius:22px;background:#2a2a2f;box-shadow:0 12px 30px rgba(0,0,0,.5);
+}
+.nav-float[hidden]{display:none}
+.nav-float button{
+ flex:1;min-height:44px;border:0;border-radius:16px;background:transparent;
+ color:var(--muted);display:grid;place-items:center;cursor:pointer;
+}
+.nav-float button.active{color:var(--a1);background:rgba(255,255,255,.07)}
+ /* Экран поиска: аватар, крупная строка поиска и недавние треки */
+.search-brand{display:flex;align-items:center;gap:12px}
+.search-brand[hidden]{display:none}
+.search-brand b{font-size:20px;font-weight:700;letter-spacing:-.2px}
+.avatar{
+ width:34px;height:34px;flex:none;border-radius:50%;
+ background:var(--a1);color:var(--on-a1);display:grid;place-items:center;
+}
+.avatar svg{width:20px;height:20px}
+.app.search-mode .brand{display:none}
+.searchbox{height:56px;border:0;border-radius:18px;background:var(--card2)}
+.search-view .list-head{
+ padding:20px 4px 10px;color:var(--on);font-size:15px;font-weight:700;
+ letter-spacing:0;text-transform:none;
+}
+.search-view .list-head #res-count{color:var(--muted);font-size:12px;font-weight:400}
+.search-view .track .cover::after{display:none}
+.history-list{display:flex;flex-direction:column}
+.history-row{
+ position:relative;display:flex;align-items:center;gap:14px;
+ padding:12px 4px;cursor:pointer;border-bottom:1px solid var(--line);
+}
+.history-row:active{background:var(--card)}
+.history-row .cover{width:52px;height:52px;border-radius:12px}
+.history-row .cover::after{display:none}
+.history-row .meta b{font-size:15px;font-weight:700;color:var(--on)}
+.artist-line{display:flex;align-items:center;gap:6px;min-width:0}
+.artist-line .artist{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.sources{display:inline-flex;align-items:center;gap:4px;flex:none;color:var(--muted)}
+.sources svg{width:13px;height:13px;opacity:.8}
+.history-clear{border:0;background:transparent;color:var(--muted);padding:10px;cursor:pointer;flex:none}
+.history-clear svg{width:18px;height:18px}
+.history-empty{color:var(--muted);font-size:13px;text-align:center;padding:28px 8px}
+.history-empty[hidden]{display:none}
+ .toast{
  position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));
  transform:translate(-50%,12px);background:var(--on);color:var(--bg);
  padding:10px 16px;border-radius:14px;font-size:13px;opacity:0;
@@ -224,6 +327,12 @@ button,input{font:inherit}
 <body>
 <div class="app">
   <header class="top">
+    <div class="search-brand" id="search-brand" hidden>
+      <span class="avatar" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.6-3.7 3.6-6 7.5-6s6.9 2.3 7.5 6"/></svg>
+      </span>
+      <b>Поиск</b>
+    </div>
     <div class="brand">
       <div class="mark">N</div>
       <div class="brand-text"><strong>NS</strong><span>NeverSleep</span></div>
@@ -239,7 +348,7 @@ button,input{font:inherit}
   </header>
 
   <main class="main">
-    <section class="view" id="view-search">
+    <section class="view search-view" id="view-search">
       <label class="searchbox">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
         <input id="q" type="search" placeholder="Трек или исполнитель" autocomplete="off" aria-label="Поиск треков">
@@ -247,7 +356,11 @@ button,input{font:inherit}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
       </label>
-      <div class="list-head"><span>Моя музыка</span><span id="res-count"></span></div>
+      <div class="list-head"><span id="list-title">Недавние запросы</span><span id="res-count"></span></div>
+      <div id="search-history">
+        <div class="history-list" id="history-list"></div>
+        <div class="history-empty" id="history-empty" hidden>Здесь появятся недавние треки</div>
+      </div>
       <div class="tracks" id="results"></div>
       <div class="empty" id="no-result" hidden>
         <b>Ничего не найдено</b><p>Попробуй другой запрос.</p>
@@ -288,6 +401,7 @@ button,input{font:inherit}
         <b id="playlist-title"></b>
         <span class="side"></span>
       </div>
+      <button class="edit-pill" id="liked-edit" type="button" hidden>Править</button>
       <div class="tracks" id="playlist-list"></div>
       <div class="empty" id="playlist-empty" hidden>
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
@@ -322,32 +436,52 @@ button,input{font:inherit}
       <span class="badge" id="badge">0</span>
     </button>
   </nav>
+  <nav class="nav-float" id="nav-float" aria-label="Быстрая навигация" hidden>
+    <button type="button" data-nav="home" aria-label="Любимые плейлисты">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+    </button>
+    <button type="button" data-nav="search" aria-label="Поиск">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+    </button>
+    <button type="button" data-nav="menu" aria-label="Настройки">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
 </div>
 
 <div class="sheet" id="sheet" hidden>
   <div class="sheet-backdrop" id="sheet-backdrop"></div>
   <div class="sheet-panel">
     <div class="sheet-head">
-      <button class="ctrl secondary" id="sheet-close" type="button" aria-label="Закрыть">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+      <button class="np-top-btn" id="sheet-close" type="button" aria-label="Свернуть плеер">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
       </button>
-      <span>Сейчас играет</span>
-      <button class="fav-btn" id="sheet-fav" type="button" aria-label="Любимое"></button>
+      <div class="np-heading"><b>Music</b><span id="sheet-counter">Трек 1 из 1</span></div>
+      <button class="np-top-btn" id="sheet-menu" type="button" aria-label="Меню трека">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>
+      </button>
     </div>
+    <div class="np-menu" id="sheet-menu-pop" hidden></div>
     <div class="sheet-body">
       <div class="sheet-info">
-        <div class="big-cover" id="sheet-cover">N</div>
-        <div class="sheet-title" id="sheet-title"></div>
-        <div class="sheet-artist" id="sheet-artist"></div>
+        <div class="big-cover" id="sheet-cover" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+        </div>
+        <div class="np-meta">
+          <div class="np-title-row">
+            <div class="sheet-title" id="sheet-title"></div>
+            <button class="np-heart" id="sheet-fav" type="button" aria-label="Любимое"></button>
+          </div>
+          <div class="sheet-artist" id="sheet-artist"></div>
+        </div>
       </div>
       <div class="sheet-bottom">
         <canvas class="wave" id="sheet-wave" aria-label="Прогресс трека"></canvas>
         <div class="times"><span id="t-cur">0:00</span><span id="t-dur">0:00</span></div>
         <div class="controls">
-        <button class="ctrl secondary on" id="sheet-loop" type="button" aria-label="Повтор" aria-pressed="true">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
-        </button>
-        <div class="transport">
+          <button class="ctrl secondary" id="sheet-shuffle" type="button" aria-label="Перемешивание" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M10 14L3 21"/><path d="M3 16v5h5"/><path d="M4 4l5 5"/><path d="M15 15l6 6"/></svg>
+          </button>
           <button class="ctrl" id="sheet-prev" type="button" aria-label="Предыдущий трек">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h2v14H6zM20 5v14l-11-7z"/></svg>
           </button>
@@ -355,10 +489,9 @@ button,input{font:inherit}
           <button class="ctrl" id="sheet-next" type="button" aria-label="Следующий трек">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>
           </button>
-        </div>
-        <button class="ctrl secondary" id="sheet-shuffle" type="button" aria-label="Перемешивание" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M21 3l-7 7"/><path d="M10 14L3 21"/><path d="M3 16v5h5"/><path d="M4 4l5 5"/><path d="M15 15l6 6"/></svg>
-        </button>
+          <button class="ctrl secondary" id="sheet-loop" type="button" aria-label="Повтор" aria-pressed="false">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a4 4 0 014-4h14"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a4 4 0 01-4 4H3"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -406,7 +539,8 @@ button,input{font:inherit}
  'use strict';
 
  var KEY = 'ns:favorites:v2';
- var ACCENT_KEY = 'ns:accent:v1';
+ var HISTORY_KEY = 'ns:search-history:v1';
+  var ACCENT_KEY = 'ns:accent:v1';
  var ACCENTS = [
   {name:'Как в системе', value:null},
   {name:'Лаванда', value:'#b1a0d9'},
@@ -531,9 +665,10 @@ button,input{font:inherit}
  }catch(e){}
  applySecondary();
 
- var tracks = [], fav = loadFav(), tab = 'search', query = '', favView = null;
+ var tracks = [], fav = loadFav(), recent = loadHistory(), tab = 'search', query = '', favView = null;
  var currentId = null, playing = false, sheetOpen = false, loop = false, shuffle = false;
  var wavePhase = 0, raf = 0, seeking = false, toastTimer;
+ var likedEdit = false;
  var audio = new Audio();
  audio.preload = 'metadata';
  audio.volume = 0.9;
@@ -545,6 +680,26 @@ button,input{font:inherit}
   }catch(e){ return []; }
  }
  function saveFav(){ try{ localStorage.setItem(KEY, JSON.stringify(fav)); }catch(e){} }
+  function loadHistory(){
+   try{
+    var a = JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    return Array.isArray(a) ? a.filter(function(x){ return typeof x === 'string'; }) : [];
+   }catch(e){ return []; }
+  }
+  function saveHistory(){ try{ localStorage.setItem(HISTORY_KEY, JSON.stringify(recent)); }catch(e){} }
+  function pushHistory(id){
+   if(!id) return;
+   var i = recent.indexOf(id);
+   if(i >= 0) recent.splice(i, 1);
+   recent.unshift(id);
+   if(recent.length > 12) recent.length = 12;
+   saveHistory();
+  }
+  function removeHistory(id){
+   recent = recent.filter(function(x){ return x !== id; });
+   saveHistory();
+   render();
+  }
  function toast(msg){
   var t = $('toast');
   t.textContent = msg;
@@ -598,8 +753,40 @@ button,input{font:inherit}
                 : '<path d="M8 5v14l11-7z"/>';
   return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="currentColor">' + path + '</svg>';
  }
- function row(t){
+ function historyRow(t){
+  var hid = esc(t.id);
+  var sources = '<span class="sources" aria-hidden="true">' +
+   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 11c3-2 6-1 8 .7M8.5 14.5c2.4-1.4 4.8-1 6.6.5"/></svg>' +
+   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"/></svg>' +
+   '</span>';
+  return '<article class="history-row" data-id="' + hid + '">' +
+   '<div class="cover">' + esc(t.title.slice(0, 1).toUpperCase()) + '</div>' +
+   '<div class="meta"><b>' + esc(t.title) + '</b>' +
+    '<span class="artist-line"><span class="artist">' + esc(t.artist) + '</span>' + sources + '</span></div>' +
+   '<button class="history-clear" type="button" data-history-clear="' + hid + '" aria-label="Убрать из недавних">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
+   '</button>' +
+   '</article>';
+ }
+ function row(t, liked){
   var isFav = fav.indexOf(t.id) >= 0;
+  if(liked){
+   var lid = esc(t.id);
+   return '<article class="track liked-row' + (currentId === t.id ? ' current' : '') + '" data-id="' + lid + '">' +
+    '<div class="cover">' + esc(t.title.slice(0, 1).toUpperCase()) + '</div>' +
+    '<div class="meta"><b>' + esc(t.title) + '</b><span>' + esc(t.artist) + '</span></div>' +
+    '<button class="fav-btn dots" type="button" data-dots="' + lid + '" aria-label="Меню трека">' +
+     '<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="12" cy="19" r="1.7"/></svg>' +
+    '</button>' +
+    '<button class="row-remove" type="button" data-fav="' + lid + '" aria-label="Убрать из любимого">' +
+     '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>' +
+    '</button>' +
+    '<div class="row-menu" hidden>' +
+     '<button type="button" data-fav="' + lid + '">' + (isFav ? 'Убрать из любимого' : 'Добавить в любимое') + '</button>' +
+     '<button type="button" data-del="' + lid + '">Удалить трек</button>' +
+    '</div>' +
+    '</article>';
+  }
   return '<article class="track' + (currentId === t.id ? ' current' : '') + '" data-id="' + esc(t.id) + '">' +
    '<div class="cover">' + esc(t.title.slice(0, 1).toUpperCase()) + '</div>' +
    '<div class="meta"><b>' + esc(t.title) + '</b><span>' + esc(t.artist) + '</span></div>' +
@@ -616,10 +803,13 @@ button,input{font:inherit}
   var list = tracks.filter(function(t){
    return !q || (t.title + ' ' + t.artist + ' ' + t.name).toLowerCase().indexOf(q) >= 0;
   });
-  $('results').innerHTML = list.length ? list.map(row).join('') : '';
-  $('res-count').textContent = tracks.length + ' трек(ов)';
+  $('search-history').hidden = !!q;
+  $('list-title').textContent = q ? 'Результаты' : 'Недавние запросы';
+  $('res-count').textContent = q ? list.length + ' трек(ов)' : '';
+  $('results').innerHTML = q && list.length ? list.map(function(t){ return row(t); }).join('') : '';
   $('lib-empty').hidden = tracks.length > 0;
-  $('no-result').hidden = !(tracks.length > 0 && list.length === 0);
+  $('no-result').hidden = !(q && tracks.length > 0 && list.length === 0);
+  if(!q) renderHistory();
 
   $('dev-sub').textContent = tracks.length + ' трек(ов)';
   var fl = tracks.filter(function(t){ return fav.indexOf(t.id) >= 0; });
@@ -635,17 +825,63 @@ button,input{font:inherit}
  }
  function renderPlaylist(){
   if(!favView) return;
+  var liked = favView === 'likes';
   var list = playlistTracks();
-  $('playlist-title').textContent = favView === 'likes' ? 'Лайки' : 'На устройстве';
-  $('playlist-list').innerHTML = list.length ? list.map(row).join('') : '';
+  $('playlist-title').textContent = liked ? 'Любимые треки' : 'На устройстве';
+  $('playlist-list').innerHTML = list.length ? list.map(function(t){ return row(t, liked); }).join('') : '';
   $('playlist-empty').hidden = list.length > 0;
-  $('playlist-empty-title').textContent = favView === 'likes' ? 'Нет лайков' : 'Нет треков на устройстве';
-  $('playlist-empty-text').textContent = favView === 'likes'
+  $('playlist-empty-title').textContent = liked ? 'Нет лайков' : 'Нет треков на устройстве';
+  $('playlist-empty-text').textContent = liked
    ? 'Нажми сердечко у трека, чтобы добавить сюда.'
    : 'Добавь аудиофайлы через кнопку «+».';
  }
+ function renderHistory(){
+  var list = [];
+  for(var i = 0; i < recent.length && list.length < 12; i++){
+   for(var n = 0; n < tracks.length; n++){
+    if(tracks[n].id === recent[i]){ list.push(tracks[n]); break; }
+   }
+  }
+  $('history-list').innerHTML = list.map(historyRow).join('');
+  $('history-empty').hidden = list.length > 0 || tracks.length === 0;
+ }
+ function closeRowMenus(){
+  var menus = document.querySelectorAll('#playlist-list .row-menu');
+  for(var i = 0; i < menus.length; i++) menus[i].hidden = true;
+ }
+ function updateFloatNav(){
+  var app = document.querySelector('.app');
+  var on = app.classList.contains('liked-mode') || app.classList.contains('search-mode');
+  app.classList.toggle('float-nav', on);
+  $('nav-float').hidden = !on;
+  var active = app.classList.contains('liked-mode') ? 'home' : 'search';
+  var navs = document.querySelectorAll('#nav-float button');
+  for(var i = 0; i < navs.length; i++){
+   navs[i].classList.toggle('active', navs[i].getAttribute('data-nav') === active);
+  }
+ }
+ function setLikedMode(on){
+  document.querySelector('.app').classList.toggle('liked-mode', on);
+  $('view-playlist').classList.toggle('liked-view', on);
+  $('playlist-list').classList.toggle('liked-list', on);
+  $('liked-edit').hidden = !on;
+  updateFloatNav();
+  if(!on){
+   likedEdit = false;
+   $('view-playlist').classList.remove('edit-mode');
+   $('liked-edit').textContent = 'Править';
+   closeRowMenus();
+  }
+ }
+ function setSearchMode(on){
+  document.querySelector('.app').classList.toggle('search-mode', on);
+  $('search-brand').hidden = !on;
+  updateFloatNav();
+ }
  function openPlaylist(kind){
   favView = kind;
+  setLikedMode(kind === 'likes');
+  setSearchMode(false);
   $('view-search').hidden = true;
   $('view-fav').hidden = true;
   $('view-playlist').hidden = false;
@@ -654,6 +890,7 @@ button,input{font:inherit}
  }
  function showFavOverview(){
   favView = null;
+  setLikedMode(false);
   $('view-playlist').hidden = true;
  }
  function toggleFav(id){
@@ -665,6 +902,8 @@ button,input{font:inherit}
  function switchTab(name){
   tab = name;
   favView = null;
+  setLikedMode(false);
+  setSearchMode(name === 'search');
   $('view-playlist').hidden = true;
   $('view-search').hidden = name !== 'search';
   $('view-fav').hidden = name !== 'fav';
@@ -696,14 +935,18 @@ button,input{font:inherit}
  function updatePlayer(){
   var t = currentTrack();
   $('mini').hidden = !t;
+  document.querySelector('.app').classList.toggle('has-mini', !!t && !$('nav-float').hidden);
   if(!t){ if(sheetOpen) closeSheet(); return; }
   var letter = t.title.slice(0, 1).toUpperCase();
   $('mini-cover').textContent = letter;
-  $('sheet-cover').textContent = letter;
+  // обложка теперь статичная: иконка ноты в разметке
   $('mini-title').textContent = t.title;
   $('sheet-title').textContent = t.title;
   $('mini-artist').textContent = t.artist;
   $('sheet-artist').textContent = t.artist;
+  var n = 1;
+  for(var i = 0; i < tracks.length; i++){ if(tracks[i].id === currentId){ n = i + 1; break; } }
+  $('sheet-counter').textContent = 'Трек ' + n + ' из ' + tracks.length;
   $('mini-state').textContent = playing ? 'ИГРАЕТ' : 'ПАУЗА';
   $('mini-play').innerHTML = playIcon(playing);
   $('sheet-play').innerHTML = playIcon(playing, 26);
@@ -720,6 +963,7 @@ button,input{font:inherit}
  }
  function play(id){
   if(id) currentId = id;
+  pushHistory(currentId);
   if(!currentId){
    if(tracks.length) currentId = tracks[0].id;
    else { toast('Сначала добавь музыку'); $('file-input').click(); return; }
@@ -771,21 +1015,23 @@ button,input{font:inherit}
   var dur = audio.duration || (t ? t.duration : 0);
   var ratio = dur ? Math.max(0, Math.min(1, audio.currentTime / dur)) : 0;
   var x = ratio * w;
+  var np = false;
 
   // Оставшаяся часть — прямая линия.
-  ctx.strokeStyle = cssVar('--line') || '#37363e';
+  ctx.strokeStyle = np ? 'rgba(255,255,255,.18)' : (cssVar('--line') || '#37363e');
   ctx.lineWidth = 2; ctx.lineCap = 'round';
   ctx.beginPath(); ctx.moveTo(x, cy); ctx.lineTo(w, cy); ctx.stroke();
 
   // Прошедшая часть — волна с переливающимся градиентом.
   if(x > 2){
-   var a1 = cssVar('--a1') || '#d0bcff';
+   var g = ctx.createLinearGradient(0, 0, x, 0);
+   if(np){ g.addColorStop(0,'#7cc0ff'); g.addColorStop(1,'#3d8bff'); }
+   if(!np){ var a1 = cssVar('--a1') || '#d0bcff';
    var a2 = cssVar('--a2') || '#efb8c8';
    var k = (Math.sin(wavePhase * 0.45) + 1) / 2;
-   var g = ctx.createLinearGradient(0, 0, x, 0);
    g.addColorStop(0, mix(a1, a2, k));
    g.addColorStop(0.5, mix(a1, a2, 1 - k));
-   g.addColorStop(1, a2);
+   g.addColorStop(1, a2); }
    ctx.fillStyle = g;
    var amp = Math.min(h * 0.3, 5);
    ctx.beginPath(); ctx.moveTo(0, cy);
@@ -828,7 +1074,7 @@ button,input{font:inherit}
   if(!currentTrack()) return;
   sheetOpen = true; $('sheet').hidden = false; updatePlayer();
  }
- function closeSheet(){ sheetOpen = false; $('sheet').hidden = true; }
+ function closeSheet(){ sheetOpen = false; $('sheet').hidden = true; $('sheet-menu-pop').hidden = true; }
  function openSettings(){
   renderAccents();
   $('settings-page-color').hidden = true;
@@ -874,6 +1120,16 @@ button,input{font:inherit}
  });
  $('file-input').addEventListener('change', function(){ addFiles(this.files); });
 
+ $('history-list').addEventListener('click', function(e){
+  var c = e.target.closest('[data-history-clear]');
+  if(c){
+   e.stopPropagation();
+   removeHistory(c.getAttribute('data-history-clear'));
+   return;
+  }
+  var rowEl = e.target.closest('[data-id]');
+  if(rowEl) play(rowEl.getAttribute('data-id'));
+ });
  $('q').addEventListener('input', function(){
   query = this.value;
   $('clear').hidden = !query;
@@ -894,6 +1150,31 @@ button,input{font:inherit}
   showFavOverview();
   $('view-fav').hidden = false;
   document.querySelector('.main').scrollTop = 0;
+ });
+ $('liked-edit').addEventListener('click', function(){
+  likedEdit = !likedEdit;
+  $('view-playlist').classList.toggle('edit-mode', likedEdit);
+  this.textContent = likedEdit ? 'Готово' : 'Править';
+  closeRowMenus();
+ });
+ $('playlist-list').addEventListener('click', function(e){
+  var d = e.target.closest('[data-dots]');
+  if(!d) return;
+  var menu = d.parentNode.querySelector('.row-menu');
+  var wasOpen = menu && !menu.hidden;
+  closeRowMenus();
+  if(menu && !wasOpen) menu.hidden = false;
+ });
+ document.addEventListener('click', function(e){
+  if(!e.target.closest('[data-dots]') && !e.target.closest('.row-menu')) closeRowMenus();
+  if(!e.target.closest('#sheet-menu') && !e.target.closest('#sheet-menu-pop')) $('sheet-menu-pop').hidden = true;
+ });
+ $('nav-float').addEventListener('click', function(e){
+  var b = e.target.closest('[data-nav]');
+  if(!b) return;
+  var n = b.getAttribute('data-nav');
+  if(n === 'menu'){ openSettings(); return; }
+  switchTab(n === 'home' ? 'fav' : 'search');
  });
  function removeTrack(id){
   var idx = -1;
@@ -917,6 +1198,7 @@ button,input{font:inherit}
   toast('Трек удалён');
  }
  function onListClick(e){
+  if(e.target.closest('[data-dots]')) return;
   var d = e.target.closest('[data-del]');
   if(d){ removeTrack(d.getAttribute('data-del')); return; }
   var b = e.target.closest('[data-fav]');
@@ -950,6 +1232,24 @@ button,input{font:inherit}
  $('sheet-prev').addEventListener('click', prev);
  $('sheet-next').addEventListener('click', next);
  $('sheet-fav').addEventListener('click', function(){ if(currentId) toggleFav(currentId); });
+ $('sheet-menu').addEventListener('click', function(e){
+  e.stopPropagation();
+  var m = $('sheet-menu-pop');
+  m.hidden = !m.hidden;
+  if(!m.hidden){
+   var t = currentTrack();
+   var on = t && fav.indexOf(t.id) >= 0;
+   m.innerHTML = '<button type="button" data-np-action="fav">' + (on ? 'Убрать из любимого' : 'Добавить в любимое') + '</button>' +
+    '<button type="button" data-np-action="close">Свернуть плеер</button>';
+  }
+ });
+ $('sheet-menu-pop').addEventListener('click', function(e){
+  var b = e.target.closest('[data-np-action]');
+  if(!b) return;
+  this.hidden = true;
+  if(b.getAttribute('data-np-action') === 'fav'){ if(currentId) toggleFav(currentId); }
+  else closeSheet();
+ });
  $('sheet-loop').addEventListener('click', function(){
   loop = !loop;
   updatePlayer();
@@ -984,6 +1284,7 @@ button,input{font:inherit}
   return false;
  };
 
+ setSearchMode(true);
  render();
  updatePlayer();
 })();
