@@ -66,8 +66,17 @@ button,input{font:inherit}
  width:44px;height:44px;flex:none;border-radius:13px;
  background:linear-gradient(135deg,var(--a1),var(--a2));
  color:var(--on-a1);display:grid;place-items:center;
- font-weight:800;font-size:15px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12);
+ font-weight:800;font-size:15px;position:relative;
 }
+.track .cover::after{
+ content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;
+ background:linear-gradient(110deg,var(--a1),var(--a2),var(--a1),var(--a2));
+ background-size:300% 100%;
+ -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+ -webkit-mask-composite:xor;mask-composite:exclude;
+ animation:coverFlow 4s linear infinite;pointer-events:none;
+}
+@keyframes coverFlow{from{background-position:0 0}to{background-position:300% 0}}
 .meta{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 .meta b{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .meta span{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -114,19 +123,19 @@ button,input{font:inherit}
  background:var(--bg);display:flex;flex-direction:column;
  padding:calc(12px + env(safe-area-inset-top)) 16px calc(20px + env(safe-area-inset-bottom));
 }
-.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.sheet-body{flex:1;display:flex;flex-direction:column;justify-content:flex-start;min-height:0}
 .sheet-head{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
 .big-cover{
- width:min(52vw,196px);aspect-ratio:1;margin:18px auto 14px;border-radius:26px;
+ width:min(74vw,300px);aspect-ratio:1;margin:12px auto 16px;border-radius:32px;
  background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1);
- display:grid;place-items:center;font-size:56px;font-weight:800;box-shadow:0 16px 40px rgba(0,0,0,.45);
+ display:grid;place-items:center;font-size:76px;font-weight:800;box-shadow:0 16px 40px rgba(0,0,0,.45);
 }
 .sheet-title{text-align:center;font-size:21px;font-weight:700;line-height:1.25;overflow-wrap:anywhere}
 .sheet-artist{text-align:center;color:var(--muted);font-size:14px;margin-top:4px}
 .sheet .wave{height:34px;margin-top:26px}
 .times{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;margin-top:2px}
 .controls{
- width:100%;max-width:460px;margin:18px auto 0;
+ width:100%;max-width:460px;margin:auto auto 4px;
  display:grid;grid-template-columns:var(--ctrl-s) 1fr var(--ctrl-s);
  align-items:center;gap:clamp(4px,1.5vw,8px);
 }
@@ -143,6 +152,33 @@ button,input{font:inherit}
 .ctrl.secondary{width:var(--ctrl-s);height:var(--ctrl-s);border-radius:14px}
 .ctrl.secondary svg{width:62%;height:62%}
 .ctrl.on{color:var(--a2)}
+.settings{position:fixed;inset:0;z-index:15;display:flex;align-items:flex-end;justify-content:center}
+.settings[hidden]{display:none}
+.settings-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.66)}
+.settings-panel{
+ position:relative;width:100%;max-width:560px;max-height:86dvh;overflow-y:auto;overscroll-behavior:contain;
+ background:var(--surface);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;
+ padding:14px 18px calc(22px + env(safe-area-inset-bottom));
+ box-shadow:0 -16px 40px rgba(0,0,0,.45);
+}
+.settings-head{display:flex;align-items:center;justify-content:space-between;min-height:40px;color:var(--muted);font-size:11px;letter-spacing:1.4px;text-transform:uppercase}
+.settings-head .side{width:36px}
+.settings-title{color:var(--on);font-size:12px;font-weight:600}
+.accent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}
+.accent-item{
+ border:0;background:transparent;color:var(--muted);cursor:pointer;border-radius:16px;
+ padding:8px 2px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:11px;line-height:1.2;text-align:center;
+}
+.accent-item:active{background:var(--card2)}
+.accent-item.on{color:var(--on)}
+.accent-dot{
+ width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+ background:var(--a2);color:var(--on-a2);
+ box-shadow:0 0 0 2px var(--surface),0 0 0 3px var(--line);
+}
+.accent-item.on .accent-dot{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--a1)}
+.accent-dot.system{background:linear-gradient(135deg,var(--a1),var(--a2));color:var(--on-a1)}
+.accent-dot svg{width:18px;height:18px}
 .toast{
  position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));
  transform:translate(-50%,12px);background:var(--on);color:var(--bg);
@@ -163,6 +199,9 @@ button,input{font:inherit}
       <div class="swatch" title="Акценты из цветов системы"><i></i><i></i></div>
       <button class="icon-btn add" id="add" type="button" aria-label="Добавить аудиофайлы">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="icon-btn" id="settings" type="button" aria-label="Настройки">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1.03 1.56V21a2 2 0 01-4 0v-.09a1.7 1.7 0 00-1.1-1.56 1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.7 1.7 0 004.6 15a1.7 1.7 0 00-1.56-1.03H3a2 2 0 010-4h.09A1.7 1.7 0 004.6 8.9a1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 012.83-2.83l.06.06A1.7 1.7 0 009 4.6a1.7 1.7 0 001.03-1.56V3a2 2 0 014 0v.09A1.7 1.7 0 0015 4.6a1.7 1.7 0 001.87-.34l.06-.06a2 2 0 012.83 2.83l-.06.06A1.7 1.7 0 0019.4 9c.14.42.5.72.94.72H21a2 2 0 010 4h-.09a1.7 1.7 0 00-1.51 1.28z"/></svg>
       </button>
     </div>
   </header>
@@ -269,6 +308,21 @@ button,input{font:inherit}
   </div>
 </div>
 
+<div class="settings" id="settings-sheet" hidden>
+  <div class="settings-backdrop" id="settings-backdrop"></div>
+  <div class="settings-panel">
+    <div class="settings-head">
+      <span class="side"></span>
+      <span class="settings-title">Настройки</span>
+      <button class="icon-btn side" id="settings-close" type="button" aria-label="Закрыть настройки">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="list-head"><span>Вторичный цвет</span><span id="accent-name"></span></div>
+    <div class="accent-grid" id="accent-grid"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <input id="file-input" type="file" accept="audio/*" multiple hidden>
 <script>
@@ -276,6 +330,27 @@ button,input{font:inherit}
  'use strict';
 
  var KEY = 'ns:favorites:v2';
+ var ACCENT_KEY = 'ns:accent:v1';
+ var ACCENTS = [
+  {name:'Как в системе', value:null},
+  {name:'Лаванда', value:'#d0bcff'},
+  {name:'Синий', value:'#aecbfa'},
+  {name:'Бирюза', value:'#8ee0d8'},
+  {name:'Мята', value:'#a8e6cf'},
+  {name:'Зелёный', value:'#b7e1a1'},
+  {name:'Жёлтый', value:'#f7d590'},
+  {name:'Оранжевый', value:'#ffb78a'},
+  {name:'Коралл', value:'#f2b8b5'},
+  {name:'Малина', value:'#f5b8de'}
+ ];
+ function loadAccent(){
+  try{
+   var v = localStorage.getItem(ACCENT_KEY);
+   return v && /^#[0-9a-f]{6}$/i.test(v) ? v : null;
+  }catch(e){ return null; }
+ }
+ var secondaryOverride = loadAccent();
+ var systemColors = null;
  var $ = function(id){ return document.getElementById(id); };
  function esc(s){
   return String(s == null ? '' : s).replace(/[&<>"']/g, function(m){
@@ -312,19 +387,73 @@ button,input{font:inherit}
   }).join('');
  }
 
+ function textOn(hex){
+  var c = rgb(hex);
+  if(!c) return '#f2f0f5';
+  var l = c.map(function(v){
+   v /= 255;
+   return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  var L = 0.2126 * l[0] + 0.7152 * l[1] + 0.0722 * l[2];
+  return L > 0.36 ? '#111114' : '#f2f0f5';
+ }
+ function applySecondary(){
+  var s = document.documentElement.style;
+  function set(k, v){ if(v) s.setProperty('--' + k, v); }
+  if(secondaryOverride){
+   set('a2', secondaryOverride);
+   set('a2c', mix(secondaryOverride, '#111114', 0.22));
+   set('on-a2', textOn(secondaryOverride));
+  }else if(systemColors){
+   set('a2', systemColors.a2);
+   set('a2c', systemColors.a2c);
+   set('on-a2', systemColors.onA2);
+  }
+  renderAccents();
+ }
+ function setAccent(value){
+  secondaryOverride = value;
+  try{
+   if(value) localStorage.setItem(ACCENT_KEY, value);
+   else localStorage.removeItem(ACCENT_KEY);
+  }catch(e){}
+  applySecondary();
+ }
+ function renderAccents(){
+  if(!$('accent-grid')) return;
+  var current = secondaryOverride || 'system';
+  var name = 'Как в системе';
+  for(var i = 0; i < ACCENTS.length; i++){
+   if((ACCENTS[i].value || 'system') === current) name = ACCENTS[i].name;
+  }
+  $('accent-name').textContent = name;
+  $('accent-grid').innerHTML = ACCENTS.map(function(a){
+   var key = a.value || 'system';
+   var on = key === current;
+   var dotStyle = a.value ? ' style="background:' + a.value + ';color:' + textOn(a.value) + '"' : '';
+   var check = on ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L19 7"/></svg>' : '';
+   return '<button class="accent-item' + (on ? ' on' : '') + '" type="button" data-accent="' + key + '" aria-label="' + esc(a.name) + '">' +
+    '<span class="accent-dot' + (a.value ? '' : ' system') + '"' + dotStyle + '>' + check + '</span>' +
+    '<span>' + esc(a.name) + '</span></button>';
+  }).join('');
+ }
+
  /* Фон и поверхности фиксированные: серый, почти чёрный.
     Из системной палитры берём только акценты (второй — переменная --a2). */
  function applyColors(c){
   if(!c || !c.a1) return;
+  systemColors = c;
   var s = document.documentElement.style;
   function set(k, v){ if(v) s.setProperty('--' + k, v); }
   set('a1', c.a1); set('a1c', c.a1c); set('on-a1', c.onA1);
   set('a2', c.a2); set('a2c', c.a2c); set('on-a2', c.onA2);
+  applySecondary();
  }
  window.nsApplySystemColors = applyColors;
  try{
   if(window.NSBridge && window.NSBridge.colors) applyColors(JSON.parse(window.NSBridge.colors()));
  }catch(e){}
+ applySecondary();
 
  var tracks = [], fav = loadFav(), tab = 'search', query = '';
  var currentId = null, playing = false, sheetOpen = false, loop = false, shuffle = false;
@@ -599,6 +728,8 @@ button,input{font:inherit}
   sheetOpen = true; $('sheet').hidden = false; updatePlayer();
  }
  function closeSheet(){ sheetOpen = false; $('sheet').hidden = true; }
+ function openSettings(){ renderAccents(); $('settings-sheet').hidden = false; }
+ function closeSettings(){ $('settings-sheet').hidden = true; }
 
  audio.addEventListener('play', function(){ playing = true; updatePlayer(); startWave(); });
  audio.addEventListener('pause', function(){ playing = false; updatePlayer(); stopWave(); });
@@ -613,6 +744,17 @@ button,input{font:inherit}
  function pickFiles(){ $('file-input').click(); }
  $('add').addEventListener('click', pickFiles);
  $('add-empty').addEventListener('click', pickFiles);
+ $('settings').addEventListener('click', openSettings);
+ $('settings-close').addEventListener('click', closeSettings);
+ $('settings-backdrop').addEventListener('click', closeSettings);
+ $('accent-grid').addEventListener('click', function(e){
+  var b = e.target.closest('[data-accent]');
+  if(!b) return;
+  var key = b.getAttribute('data-accent');
+  if(key === 'system') setAccent(null);
+  else setAccent(key);
+  toast(key === 'system' ? 'Цвет как в системе' : 'Вторичный цвет изменён');
+ });
  $('file-input').addEventListener('change', function(){ addFiles(this.files); });
 
  $('q').addEventListener('input', function(){
@@ -696,8 +838,9 @@ button,input{font:inherit}
 
  window.addEventListener('resize', drawWaves);
 
- // Кнопка «назад» Android: шторка → поиск → очистка запроса → выход.
+ // Кнопка «назад» Android: настройки → шторка → поиск → очистка запроса → выход.
  window.nsBack = function(){
+  if(!$('settings-sheet').hidden){ closeSettings(); return true; }
   if(sheetOpen){ closeSheet(); return true; }
   if(tab === 'fav'){ switchTab('search'); return true; }
   if(query){
