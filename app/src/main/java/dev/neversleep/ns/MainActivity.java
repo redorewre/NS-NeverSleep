@@ -1,8 +1,10 @@
 package dev.neversleep.ns;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -10,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowInsetsController;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
+import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
@@ -26,13 +30,16 @@ import org.json.JSONObject;
 /**
  * NS (NeverSleep) — нативная оболочка.
  *
- * Две задачи:
+ * Три задачи:
  * 1) отдать интерфейс с https://ns.local/assets/index.html (без file:// — CORS и localStorage работают);
  * 2) передать в веб-интерфейс реальные цвета системы Material You: primary и tertiary —
- *    это два акцента NS. При смене темы/обоев цвета пересылаются заново.
+ *    это два акцента NS. При смене темы/обоев цвета пересылаются заново;
+ * 3) открыть системный выбор аудиофайлов для локального плеера (<input type="file">).
  */
 public class MainActivity extends Activity {
+    private static final int FILE_CHOOSER_REQUEST = 1001;
     private WebView web;
+    private ValueCallback<Uri[]> filePathCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +55,8 @@ public class MainActivity extends Activity {
                 .build();
 
         web = new WebView(this);
-        web.setBackgroundColor(themeColor(com.google.android.material.R.attr.colorSurface, 0xFFFFFBFE));
+        // Фон приложения фиксированный: серый, почти чёрный.
+        web.setBackgroundColor(0xFF111114);
         web.setOverScrollMode(View.OVER_SCROLL_NEVER);
         setContentView(web);
 
@@ -71,6 +79,31 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 pushColors();
+            }
+        });
+
+        // Локальные аудиофайлы: WebView отдаёт выбранные URI в JavaScript.
+        web.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> callback,
+                                             FileChooserParams params) {
+                if (filePathCallback != null) filePathCallback.onReceiveValue(null);
+                filePathCallback = callback;
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("audio/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                try {
+                    startActivityForResult(Intent.createChooser(intent, "Выбрать аудио"),
+                            FILE_CHOOSER_REQUEST);
+                } catch (Exception e) {
+                    filePathCallback = null;
+                    callback.onReceiveValue(null);
+                    return false;
+                }
+                return true;
             }
         });
 
@@ -132,27 +165,51 @@ public class MainActivity extends Activity {
         return String.format("#%06X", 0xFFFFFF & argb);
     }
 
-    private static boolean isLight(int color) {
-        int r = Color.red(color), g = Color.green(color), b = Color.blue(color);
-        return 0.299 * r + 0.587 * g + 0.114 * b > 150;
-    }
-
     private void applySystemBars() {
-        int surface = themeColor(com.google.android.material.R.attr.colorSurface, 0xFFFFFBFE);
-        getWindow().setStatusBarColor(surface);
-        getWindow().setNavigationBarColor(surface);
+        // Системные панели того же цвета, что и фон приложения, иконки — светлые.
+        int dark = 0xFF111114;
+        getWindow().setStatusBarColor(dark);
+        getWindow().setNavigationBarColor(dark);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && getWindow().getInsetsController() != null) {
             WindowInsetsController c = getWindow().getInsetsController();
-            int flags = WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-                    | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
-            c.setSystemBarsAppearance(isLight(surface) ? flags : 0, flags);
+            c.setSystemBarsAppearance(0, WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                    | WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int flags = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
             View decor = getWindow().getDecorView();
-            decor.setSystemUiVisibility(isLight(surface) ? decor.getSystemUiVisibility() | flags
-                    : decor.getSystemUiVisibility() & ~flags);
+            decor.setSystemUiVisibility(decor.getSystemUiVisibility() & ~flags);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode != FILE_CHOOSER_REQUEST || filePathCallback == null) return;
+
+        Uri[] results = null;
+        if (resultCode == RESULT_OK && data != null) {
+            ClipData clip = data.getClipData();
+            if (clip != null) {
+                results = new Uri[clip.getItemCount()];
+                for (int i = 0; i < clip.getItemCount(); i++) {
+                    results[i] = clip.getItemAt(i).getUri();
+                }
+            } else if (data.getData() != null) {
+                results = new Uri[]{data.getData()};
+            }
+        }
+        if (results != null) {
+            for (Uri uri : results) {
+                try {
+                    getContentResolver().takePersistableUriPermission(
+                            uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        filePathCallback.onReceiveValue(results);
+        filePathCallback = null;
     }
 
     @Override
